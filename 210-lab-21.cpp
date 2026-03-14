@@ -20,6 +20,15 @@ public:
 		name = n;
 		color = c;
 	}
+
+	const int getAge(); //accessors
+	const string getName();
+	const string getColor();
+
+	void setAge(int); //mutators
+	void setName(string);
+	void getColor(string);
+
 };
 class DoublyLinkedList {
 private:
@@ -38,7 +47,7 @@ private:
 public:
 	// constructor
 	DoublyLinkedList() { head = nullptr; tail = nullptr; }
-	void push_back(int value) {
+	void push_back(Goat value) {
 		Node* newNode = new Node(value);
 		if (!tail) // if there's no tail, the list is empty
 			head = tail = newNode;
@@ -48,7 +57,7 @@ public:
 			tail = newNode;
 		}
 	}
-	void push_front(int value) {
+	void push_front(Goat value) {
 		Node* newNode = new Node(value);
 		if (!head) // if there's no head, the list is empty
 			head = tail = newNode;
@@ -145,4 +154,24 @@ int main() {
 	cout << "List forward: ";
 	list.print();
 	return 0;
+}
+
+const int Goat::getAge() {
+	return age;
+}
+const string Goat::getName() {
+	return name;
+}
+const string Goat::getColor() {
+	return color;
+}
+
+void Goat::setAge(int a) {
+	age = a;
+}
+void Goat::setName(string n) {
+	name = n;
+}
+void Goat::getColor(string c) {
+	color = c;
 }
