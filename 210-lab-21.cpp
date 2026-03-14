@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ctime>
+#include <string>
 using namespace std;
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
@@ -6,14 +8,14 @@ class Goat {
 	int age;
 	string name;
 	string color;
-	const string names[15];
-	const string colors[15];
+	static const string names[15];
+	static const string colors[15];
 
 public:
 	Goat() { //default constructor
-		age = rand() % (20 + 1); //(max - min + 1) + min
+		age = rand() % 20 + 1; //(max - min + 1) + min
 		name = names[rand() % 15];
-		color = color[rand() % 15];
+		color = colors[rand() % 15];
 	}
 	Goat(int a, string n, string c) { //parameter constructur
 		age = a;
@@ -27,16 +29,16 @@ public:
 
 	void setAge(int); //mutators
 	void setName(string);
-	void getColor(string);
+	void setColor(string);
 
 };
 class DoublyLinkedList {
 private:
 	struct Node {
-		int data;
+		Goat data;
 		Node* prev;
 		Node* next;
-		Node(int val, Node* p = nullptr, Node* n = nullptr) {
+		Node(Goat val, Node* p = nullptr, Node* n = nullptr) {
 			data = val;
 			prev = p;
 			next = n;
@@ -67,7 +69,7 @@ public:
 			head = newNode;
 		}
 	}
-	void insert_after(int value, int position) {
+	void insert_after(Goat value, int position) {
 		if (position < 0) {
 			cout << "Position must be >= 0." << endl;
 			return;
@@ -93,7 +95,7 @@ public:
 			tail = newNode; // Inserting at the end
 		temp->next = newNode;
 	}
-	void delete_node(int value) {
+	void delete_node(Goat value) {
 		if (!head) return; // Empty list
 		Node* temp = head;
 		while (temp && temp->data != value)
@@ -117,7 +119,9 @@ public:
 		Node* current = head;
 		if (!current) return;
 		while (current) {
-			cout << current->data << " ";
+			cout << current->data.getName()
+				<< " (" << current->data.getColor()
+				<< ", " << current->data.getAge() << ")" << endl;
 			current = current->next;
 		}
 		cout << endl;
@@ -126,7 +130,9 @@ public:
 		Node* current = tail;
 		if (!current) return;
 		while (current) {
-			cout << current->data << " ";
+			cout << current->data.getName()
+				<< " (" << current->data.getColor()
+				<< ", " << current->data.getAge() << ")" << endl;
 			current = current->prev;
 		}
 		cout << endl;
@@ -141,6 +147,7 @@ public:
 };
 // Driver program
 int main() {
+	srand(time(0));
 	DoublyLinkedList list;
 	int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 	for (int i = 0; i < size; ++i)
@@ -172,6 +179,6 @@ void Goat::setAge(int a) {
 void Goat::setName(string n) {
 	name = n;
 }
-void Goat::getColor(string c) {
+void Goat::setColor(string c) {
 	color = c;
 }
