@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <cstdlib>
 using namespace std;
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
@@ -95,10 +96,10 @@ public:
 			tail = newNode; // Inserting at the end
 		temp->next = newNode;
 	}
-	void delete_node(Goat value) {
+	void delete_node(int value) {
 		if (!head) return; // Empty list
 		Node* temp = head;
-		while (temp && temp->data != value)
+		while (temp && temp->data.getAge() != value)
 			temp = temp->next;
 		if (!temp) return; // Value not found
 		if (temp->prev) {
@@ -117,7 +118,10 @@ public:
 	}
 	void print() {
 		Node* current = head;
-		if (!current) return;
+		if (!current) {
+			cout << "List is empty";
+			return;
+		}
 		while (current) {
 			cout << current->data.getName()
 				<< " (" << current->data.getColor()
@@ -128,7 +132,10 @@ public:
 	}
 	void print_reverse() {
 		Node* current = tail;
-		if (!current) return;
+		if (!current) {
+			cout << "List is empty";
+			return;
+		}
 		while (current) {
 			cout << current->data.getName()
 				<< " (" << current->data.getColor()
@@ -151,7 +158,7 @@ int main() {
 	DoublyLinkedList list;
 	int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 	for (int i = 0; i < size; ++i)
-		list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
+		list.push_back(Goat());
 	cout << "List forward: ";
 	list.print();
 	cout << "List backward: ";
